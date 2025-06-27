@@ -1,0 +1,102 @@
+META_ARC: "siamfiarpn"
+
+BACKBONE:
+    TYPE: "alexnet"  #这里可以替换成别的
+    KWARGS:
+        width_mult: 1.0   # 这里改成2.0, backbone的特征提取输出就是512通道, 同时,加载的预训练模型alexnet 要替换掉
+    PRETRAINED: '/PATH/TO/YOUR/PRETRAINED_MODELS'
+    TRAIN_LAYERS: ['layer4', 'layer5'] 
+    TRAIN_EPOCH: 10
+    LAYERS_LR: 1.0
+
+ADJUST:
+    ADJUST: False
+
+RPN:
+    TYPE: 'UPChannelFIARPN'   #  UPChannelRPN 代表 SiamRPN   DepthwiseRPN 代表 SiamRPNpp
+    KWARGS:
+        # kwargs
+        anchor_num: 5
+        in_channels: 256   #  如果width_mult=2,则512
+        out_channels: 256
+MASK:
+    MASK: False
+
+ANCHOR:
+    # ancor
+    STRIDE: 8
+    # ratios
+    RATIOS: [0.33, 0.5, 1, 2, 3]
+    # scales
+    SCALES: [8]
+    # ancor_num
+    ANCHOR_NUM: 5
+
+TRACK:
+    TYPE: 'SiamRPNTracker'
+    PENALTY_K: 0.12 #0.12  #0.16
+    WINDOW_INFLUENCE: 0.38  #0.38 # 0.40
+    LR:  0.32 # 0.32  #0.30
+    EXEMPLAR_SIZE: 127
+
+    INSTANCE_SIZE: 287  # 271 or 255
+    BASE_SIZE: 0
+    CONTEXT_AMOUNT: 0.5
+
+TRAIN:
+    EPOCH: 50
+    NUM_WORKERS: 8
+    START_EPOCH: 0
+    BATCH_SIZE: 64
+    BASE_SIZE: 0
+    # 输出特征图大小
+    OUTPUT_SIZE: 17
+    BASE_LR: 0.005
+    CLS_WEIGHT: 1.0
+    LOC_WEIGHT: 1.2
+    LOG_DIR: '/PATH/TO/SAVE/YOUR/LOGS'
+    SNAPSHOT_DIR: '/PATH/TO/SAVE/YOUR/CHECKPOINTS'  #checkpoint
+    RESUME: ''    # from checkpoint   
+
+    LR:
+        TYPE: 'log'
+        KWARGS:
+            start_lr: 0.005 # 0.01
+            end_lr: 0.0001 # 0.0005
+    LR_WARMUP:
+        TYPE: 'step'
+        EPOCH: 10
+        KWARGS:
+            start_lr: 0.005
+            end_lr: 0.01
+            step: 1
+DATASET:
+    NAMES:
+    - 'VID'
+    - 'YOUTUBEBB'
+    - 'COCO'
+    - 'DET'
+    # - 'GOT'   
+    # template
+    TEMPLATE:
+        # shift
+        SHIFT: 4
+        # scale
+        SCALE: 0.05
+        # blur
+        BLUR: 0.0
+        # FLIP
+        FLIP: 0.0
+        # COLOR
+        COLOR: 1.0
+
+    SEARCH:
+        # search
+        SHIFT: 64
+        SCALE: 0.18
+        BLUR: 0.2
+        FLIP: 0.0
+        COLOR: 1.0
+
+    NEG: 0.05
+    GRAY: 0.0
