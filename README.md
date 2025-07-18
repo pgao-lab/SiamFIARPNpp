@@ -28,11 +28,10 @@ cd  SiamRPNpp
 python ./bin/my_eval.py
 ```
 ## References
-```
-PySOT
-```
+* [PySOT](https://github.com/STVIR/pysot) 
+  
 ## Citation
-```
+```bibtex
 @ARTICLE{11049880,
   author={Liu, Lu-Yao and Gao, Peng},
   journal={IEEE Signal Processing Letters}, 
