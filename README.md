@@ -3,7 +3,7 @@
 ## Compile
 ```
 cd  SiamRPNpp
-python setup.py build_ext —-inplace
+python setup.py build_ext --inplace
 ```
 ## environment
 ```
@@ -38,10 +38,6 @@ PySOT
   journal={IEEE Signal Processing Letters}, 
   title={Learning Feature Interaction Alignment Network for Siamese Region Proposal Visual Tracking}, 
   year={2025},
-  volume={},
-  number={},
-  pages={1-5},
-  keywords={Target tracking;Proposals;Visualization;Training;Feature extraction;Convolution;Accuracy;Robustness;Data mining;Artificial intelligence;Visual tracking;image processing;feature enhancement;deep learning},
-  doi={10.1109/LSP.2025.3582891}}
-
+  volume={32},
+  pages={2599--2603}
 ```
